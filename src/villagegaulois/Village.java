@@ -8,6 +8,7 @@ public class Village {
 	private Chef chef;
 	private Gaulois[] villageois;
 	private int nbVillageois = 0;
+	private Marche marche;
 
 	private static class Marche {
 		private Etal[] etals;
@@ -82,7 +83,21 @@ public class Village {
 
 	}
 
-	public Village(String nom, int nbVillageoisMaximum) {
+	public StringBuilder installerVendeur(Gaulois vendeur, String produit, int nbProduit) {
+		StringBuilder chaine = new StringBuilder();
+		chaine.append(vendeur.getNom() + " cherche un endroit pour vendre " + nbProduit + " " + produit + "\n");
+		chaine.append("Le vendeur " + vendeur.getNom() + " vend des " + produit + "à l'étal ");
+		if (this.marche.trouverVendeur(vendeur) != null) {
+
+			chaine.append(this.marche.trouverEtalLibre());
+		} else {
+			chaine.append(this.marche.trouverVendeur(vendeur));
+		}
+		return chaine;
+	}
+
+	public Village(String nom, int nbVillageoisMaximum, int nbEtals) {
+		this.marche = new Marche(nbEtals);
 		this.nom = nom;
 		villageois = new Gaulois[nbVillageoisMaximum];
 	}
