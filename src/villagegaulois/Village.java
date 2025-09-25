@@ -25,11 +25,10 @@ public class Village {
 
 		private int trouverEtalLibre() {
 			int resultat = -1;
-			while (resultat == -1) {
-				for (int i = 0; i < etals.length; i++) {
-					if (!etals[i].isEtalOccupe()) {
-						resultat = i;
-					}
+			int i = 0;
+			while (resultat == -1 && i < etals.length) {
+				if (!etals[i].isEtalOccupe()) {
+					resultat = i;
 				}
 			}
 			return resultat;
@@ -40,7 +39,7 @@ public class Village {
 
 			for (int i = 0; i < etals.length; i++) {
 				if (etals[i].contientProduit(produit)) {
-					nombreProduitsTrouves += 1;
+					nombreProduitsTrouves++;
 				}
 			}
 
@@ -50,7 +49,7 @@ public class Village {
 			for (int i = 0; i < etals.length; i++) {
 				if (etals[i].contientProduit(produit)) {
 					tableauFinalEtals[indexTableauFinal] = etals[i];
-					indexTableauFinal += 1;
+					indexTableauFinal++;
 				}
 			}
 			return tableauFinalEtals;
@@ -68,10 +67,19 @@ public class Village {
 		}
 
 		private void afficherMarche() {
-			String chaine = "Les marchés occupés sont ";
-
-			System.out.println();
+			int etalsVide = 0;
+			for (int i = 0; i < etals.length; i++) {
+				if (etals[i].isEtalOccupe()) {
+					etals[i].afficherEtal();
+				} else {
+					etalsVide++;
+				}
+			}
+			if (etalsVide != 0) {
+				System.out.println("Il reste " + etalsVide + " étals non utilisés dans le marché.");
+			}
 		}
+
 	}
 
 	public Village(String nom, int nbVillageoisMaximum) {
