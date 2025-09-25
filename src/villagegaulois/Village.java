@@ -55,6 +55,23 @@ public class Village {
 			}
 			return tableauFinalEtals;
 		}
+
+		private Etal trouverVendeur(Gaulois gaulois) {
+			Etal etalTrouve = null;
+			int i = 0;
+			while (etalTrouve == null && i < this.etals.length) {
+				if (etals[i].getVendeur() == gaulois) {
+					etalTrouve = etals[i];
+				}
+			}
+			return etalTrouve;
+		}
+
+		private void afficherMarche() {
+			String chaine = "Les marchés occupés sont ";
+
+			System.out.println();
+		}
 	}
 
 	public Village(String nom, int nbVillageoisMaximum) {
