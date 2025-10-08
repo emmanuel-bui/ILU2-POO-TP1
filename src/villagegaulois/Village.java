@@ -135,7 +135,10 @@ public class Village {
 	}
 
 	public String afficherMarche() {
-		return this.marche.afficherMarche();
+		StringBuilder chaine = new StringBuilder();
+		chaine.append("Le marché du village \"" + this.getNom() + "\" possède plusieurs étals : \n");
+		chaine.append(this.marche.afficherMarche());
+		return chaine.toString();
 	}
 
 	public Village(String nom, int nbVillageoisMaximum, int nbEtals) {
@@ -172,8 +175,11 @@ public class Village {
 		return null;
 	}
 
-	public String afficherVillageois() {
+	public String afficherVillageois() throws VillageSansChefException {
 		StringBuilder chaine = new StringBuilder();
+		if (chef == null) {
+			throw new VillageSansChefException();
+		}
 		if (nbVillageois < 1) {
 			chaine.append("Il n'y a encore aucun habitant au village du chef " + chef.getNom() + ".\n");
 		} else {
@@ -183,5 +189,24 @@ public class Village {
 			}
 		}
 		return chaine.toString();
+	}
+
+	private class VillageSansChefException extends Exception {
+		private static final long serialVersionUID = 1L;
+
+		public VillageSansChefException() {
+		}
+
+		public VillageSansChefException(String message) {
+			super(message);
+		}
+
+		public VillageSansChefException(Throwable cause) {
+			super(cause);
+		}
+
+		public VillageSansChefException(String message, Throwable cause) {
+			super(message, cause);
+		}
 	}
 }
