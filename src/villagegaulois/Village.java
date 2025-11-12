@@ -26,12 +26,10 @@ public class Village {
 
 		private int trouverEtalLibre() {
 			int resultat = -1;
-			int i = 0;
-			while (resultat == -1 && i < etals.length) {
+			for (int i = 0; i < etals.length; i++) {
 				if (!etals[i].isEtalOccupe()) {
-					resultat = i;
+					return i;
 				}
-				i++;
 			}
 			return resultat;
 		}
@@ -47,8 +45,7 @@ public class Village {
 
 			Etal[] tableauFinalEtals = new Etal[nombreProduitsTrouves];
 
-			int indexTableauFinal = 0;
-			for (int i = 0; i < etals.length; i++) {
+			for (int i = 0, indexTableauFinal = 0; i < etals.length; i++) {
 				if (etals[i].contientProduit(produit)) {
 					tableauFinalEtals[indexTableauFinal] = etals[i];
 					indexTableauFinal++;
@@ -59,12 +56,11 @@ public class Village {
 
 		private Etal trouverVendeur(Gaulois gaulois) {
 			Etal etalTrouve = null;
-			int i = 0;
-			while (etalTrouve == null && i < this.etals.length) {
+			for (int i = 0; i < etals.length; i++) {
 				if (etals[i].getVendeur() == gaulois) {
-					etalTrouve = etals[i];
+					return etals[i];
+
 				}
-				i++;
 			}
 			return etalTrouve;
 		}
@@ -91,12 +87,12 @@ public class Village {
 		StringBuilder chaine = new StringBuilder();
 		chaine.append(vendeur.getNom() + " cherche un endroit pour vendre " + nbProduit + " " + produit + "\n");
 		chaine.append("Le vendeur " + vendeur.getNom() + " vend des " + produit + " à l'étal n°");
-		if (this.marche.trouverVendeur(vendeur) == null) {
-			int etalLibre = this.marche.trouverEtalLibre();
-			this.marche.utiliserEtal(etalLibre, vendeur, produit, nbProduit);
-			chaine.append(this.marche.trouverEtalLibre());
+		if (marche.trouverVendeur(vendeur) == null) {
+			int etalLibre = marche.trouverEtalLibre();
+			marche.utiliserEtal(etalLibre, vendeur, produit, nbProduit);
+			chaine.append(marche.trouverEtalLibre());
 		} else {
-			chaine.append(this.marche.trouverVendeur(vendeur));
+			chaine.append(marche.trouverVendeur(vendeur));
 		}
 		return chaine.toString();
 	}
@@ -125,12 +121,11 @@ public class Village {
 	}
 
 	public String partirVendeur(Gaulois vendeur) {
-		StringBuilder chaine = new StringBuilder();
 		Etal etal = this.marche.trouverVendeur(vendeur);
 		if (etal != null) {
 			return etal.libererEtal();
 		} else {
-			return "bizarre?";
+			return "Il n'y a pas de vendeur dans l'étal";
 		}
 	}
 
@@ -189,24 +184,5 @@ public class Village {
 			}
 		}
 		return chaine.toString();
-	}
-
-	private class VillageSansChefException extends Exception {
-		private static final long serialVersionUID = 1L;
-
-		public VillageSansChefException() {
-		}
-
-		public VillageSansChefException(String message) {
-			super(message);
-		}
-
-		public VillageSansChefException(Throwable cause) {
-			super(cause);
-		}
-
-		public VillageSansChefException(String message, Throwable cause) {
-			super(message, cause);
-		}
 	}
 }

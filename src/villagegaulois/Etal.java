@@ -55,9 +55,6 @@ public class Etal {
 		if (quantiteAcheter < 1) {
 			throw new IllegalArgumentException();
 		}
-		if (acheteur == null) {
-			throw new NullPointerException();
-		}
 		if (!etalOccupe) {
 			throw new IllegalStateException();
 		}

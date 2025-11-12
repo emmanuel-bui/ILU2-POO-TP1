@@ -25,6 +25,7 @@ public class Scenario {
 		village.ajouterHabitant(obelix);
 		village.ajouterHabitant(druide);
 		village.ajouterHabitant(abraracourcix);
+
 		try {
 			village.afficherVillageois();
 		} catch (Exception e) {
